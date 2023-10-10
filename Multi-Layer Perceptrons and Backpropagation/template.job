@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#SBATCH --partition=gpu_shared_course
+#SBATCH --gres=gpu:1
+#SBATCH --job-name=ExampleJob
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=3
+#SBATCH --time=04:00:00
+#SBATCH --mem=32000M
+#SBATCH --output=slurm_output_%A.out
+module purge
+module load 2021
+module load Anaconda3/2021.05
+
+# Your job starts in the directory where you call sbatch
+
+# Activate your environment
+source activate dl2022
+
+#for hidden_dims in "256 128" "512 256 128" "128"; do
+#	srun python -u train_mlp_pytorch.py --hidden_dims ${hidden_dims} --epochs 20
+#done
+srun python -u train_mlp_pytorch.py
+#for learning_rate in 0.000001 0.00001 0.0001 0.001 0.01 0.1 1 10 100; do
+#	srun python -u train_mlp_pytorch.py --lr "${learning_rate}"
+#done
+#srun python -u train_mlp_pytorch.py
